@@ -279,12 +279,13 @@ class Ejecucion {
             const exp = this.recorrer(nodo.hijos[5]);
             return Object.assign(Object.assign({ id }, tipo_var_nat), { dimensiones, exp });
         }
-        //TIPO_DEC_VARIABLE
+        //TIPO_DEC_VARIABLE : let -> locvar
         if (this.soyNodo('TIPO_DEC_VARIABLE', nodo)) {
             //let || const
-            return nodo.hijos[0] == 'let';
+            // return nodo.hijos[0] == 'let';
+            return nodo.hijos[0] == 'locvar';
         }
-        //TIPO_VARIABLE_NATIVA
+        //TIPO_VARIABLE_NATIVA: tero, catring, siono, vacio
         if (this.soyNodo('TIPO_VARIABLE_NATIVA', nodo)) {
             if (nodo.hijos[0] == 'string') {
                 return { tipo: 0 /* STRING */ };
