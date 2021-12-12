@@ -89,7 +89,41 @@ export default {
   },
   data() {
     return {
-      code: "",
+      code: 
+`
+//Declaración de constantes
+const b= 'b';
+console.log(b);
+
+//Declaración de constantes de variable (any type)
+locvar a  = 0;
+
+//Declaración de funciones
+function test(){
+
+  locvar x = 0;
+  locvar y = 3;
+  locvar result = x + y;
+
+  console.log('Resultado [3]: '+ result);
+  //Declaración de ciclo condicional
+  buclesi(y > 0){
+    y--;
+    result =  y + x;
+
+    //Declaración de condicional
+    porsi(y == 0){
+      console.log('Ya llegue a 0');
+    }
+    porsiaca{
+      console.log('Resultado['+y+']: '+ result);
+    }
+    
+  } 
+}
+//Llamar funciones
+test();
+`,
       cmOptions: {
         tabSize: 4,
         matchBrackets: true,

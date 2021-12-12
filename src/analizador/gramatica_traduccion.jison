@@ -30,6 +30,7 @@
 'void' return 'void';
 'type' return 'type';
 'let' return 'let';
+'locvar' return 'locvar';
 'const' return 'const';
 'console' return 'console';
 'log' return 'log';
@@ -579,7 +580,9 @@ LISTA_EXPRESIONES /*-->TR - EJ<--*/
 
 /*TR - EJ*/
 TIPO_DEC_VARIABLE
+  // : locvar       { $$ = new NodoAST({label: 'TIPO_DEC_VARIABLE', hijos: [$1], linea: yylineno}); }
   : let       { $$ = new NodoAST({label: 'TIPO_DEC_VARIABLE', hijos: [$1], linea: yylineno}); }
+  | locvar    { $$ = new NodoAST({label: 'TIPO_DEC_VARIABLE', hijos: [$1], linea: yylineno}); }
   | const     { $$ = new NodoAST({label: 'TIPO_DEC_VARIABLE', hijos: [$1], linea: yylineno}); }
 ;
 
