@@ -4,10 +4,9 @@
       <q-toolbar>
 
         <q-toolbar-title>
-          MatriosTS
+          ChirriConsole
         </q-toolbar-title>
 
-        <div>Diego Momotic - 201318633</div>
       </q-toolbar>
     </q-header>
 

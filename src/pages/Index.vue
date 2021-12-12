@@ -1,76 +1,59 @@
 <template>
-  <q-page class="constrain q-pa-lg">
+  <q-page class="">
     <div class="row">
-      <div class="col-12">
-        <q-btn-group push spread>
-          <q-btn push label="Traducir" icon="transform" @click="traducir" />
-          <q-btn push label="Limpiar" icon="cleaning_services" @click="limpiar" />
-          <q-btn push label="Ejecutar" icon="play_arrow" @click="ejecutar" />
-        </q-btn-group>
+      <div class="col">
+        <div class="q-pa-sm"></div>
+        <div class="flex justify-center">EDITOR</div>
+        <q-tab-panel name="editor" class="full-height">
+          <codemirror
+            class=""
+            v-model="code"
+            :options="cmOptions"
+            @input="codigoEditado"
+          />
+        </q-tab-panel>
       </div>
-    </div>
 
-    <!-- Editor de codigo -->
-    <div class="row justify-content-center q-mt-md">
-      <div class="col-12">
-        <q-card class="my-card">
-          <q-tabs v-model="tab" class="text-white bg-deep-orange-5">
-            <q-tab label="Editor" name="editor" />
-            <q-tab label="Errores" name="errores" v-if="errores != null && errores.length > 0" />
-            <q-tab label="Consola" name="consola" />
-            <q-tab
-              label="Tabla de Símbolos"
-              name="tabla_de_simbolos"
-              v-if="entornos != null && entornos.length > 0"
-            />
-            <q-tab label="AST" name="ast" />
-          </q-tabs>
+      <div class="col-2">
+        <div class="col row fit content-center">
+          <div class="botones column content-center full-width">
+            <div class="row">
+              <q-btn
+                push
+                label="Ejecutar"
+                class=""
+                icon="play_arrow"
+                @click="ejecutar"
+              />
+            </div>
+            <div class="q-pa-lg"></div>
+            <div class="row">
+              <q-btn
+                push
+                label="Limpiar"
+                icon="cleaning_services"
+                @click="limpiar"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
 
-          <q-separator />
-
-          <q-tab-panels v-model="tab" animated>
-            <q-tab-panel name="editor">
-              <codemirror v-model="code" :options="cmOptions" @input="codigoEditado" />
-            </q-tab-panel>
-
-            <q-tab-panel name="errores" v-if="errores != null && errores.length > 0">
-              <div class="q-pa-md">
-                <q-table
-                  title="Lista de Errores Obtenidos"
-                  :data="errores"
-                  :columns="columns"
-                  row-key="name"
-                  dark
-                  color="amber"
-                  dense
-                  :pagination="{ rowsPerPage: 0 }"
-                  rows-per-page-label="Errores por página"
-                />
-              </div>
-            </q-tab-panel>
-
-            <q-tab-panel name="consola" class="bg-grey-10 text-white">
-              <q-list dark bordered separator dense>
-                <q-item
-                  clickable
-                  v-ripple
-                  v-for="(item, index) in salida"
-                  :key="index"
-                >
-                  <q-item-section>{{ item }}</q-item-section>
-                </q-item>
-              </q-list>
-            </q-tab-panel>
-
-            <q-tab-panel name="tabla_de_simbolos" v-if="entornos != null && entornos.length > 0">
-              <tabla-simbolos :entornos="entornos" />
-            </q-tab-panel>
-
-            <q-tab-panel name="ast" style="height: 500px">
-              <ast :dot="dot" />
-            </q-tab-panel>
-          </q-tab-panels>
-        </q-card>
+      <div class="col">
+        <div class="q-pa-sm"></div>
+        <div class="flex justify-center">CONSOLA</div>
+        <q-tab-panel name="consola" class="bg-grey-10 text-white fit">
+          <q-list dark bordered separator dense>
+            <q-item
+              clickable
+              v-ripple
+              v-for="(item, index) in salida"
+              :key="index"
+            >
+              <q-item-section>{{ item }}</q-item-section>
+            </q-item>
+          </q-list>
+        </q-tab-panel>
       </div>
     </div>
   </q-page>
@@ -78,7 +61,7 @@
 
 <script>
 //JS-Beautify
-var beautify_js = require('js-beautify').js_beautify
+var beautify_js = require("js-beautify").js_beautify;
 // CodeMirror
 import { codemirror } from "vue-codemirror";
 // import base style
@@ -96,7 +79,7 @@ import { Ejecucion } from "../ejecucion/ejecucion";
 import { Errores } from "../arbol/errores";
 import { Error as InstanciaError } from "../arbol/error";
 import { Entornos } from "../ejecucion/entornos";
-import { EntornoAux } from '../ejecucion/entorno_aux';
+import { EntornoAux } from "../ejecucion/entorno_aux";
 
 export default {
   components: {
@@ -199,8 +182,11 @@ export default {
         let ejecucion = new Ejecucion(raiz);
         this.dot = ejecucion.getDot();
         //Valido si puedo ejecutar (no deben existir funciones anidadas)
-        if(!ejecucion.puedoEjecutar(raiz)){
-          this.notificar("primary", "No se puede realizar una ejecución con funciones anidadas");
+        if (!ejecucion.puedoEjecutar(raiz)) {
+          this.notificar(
+            "primary",
+            "No se puede realizar una ejecución con funciones anidadas"
+          );
           return;
         }
         ejecucion.ejecutar();
@@ -219,7 +205,7 @@ export default {
       this.errores = [];
       this.entornos = [];
       this.salida = [];
-      this.dot = '';
+      this.dot = "";
     },
     validarError(error) {
       const json = JSON.stringify(error);
@@ -243,13 +229,13 @@ export default {
         );
       }
     },
-    codigoEditado(codigo){
+    codigoEditado(codigo) {
       this.inicializarValores();
     },
-    limpiar(){
-      this.code = '';
+    limpiar() {
+      this.code = "";
       this.inicializarValores();
-    }
+    },
   },
 };
 </script>
