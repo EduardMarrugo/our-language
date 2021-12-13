@@ -5,35 +5,26 @@
 - Edgar Simmonds
 - Sebastian Fuentes
 - Eduard Marrugo
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
+- .
+- .
+- .
+- .
+- .
+- .
+- .
+- .
+- .
+- .
+- .
+- .
+- .
+- .
+- .
+- .
+- .
+- .
+- .
+- 
 
 Creditos: MatrioshTS/Universidad de San Carlos de Guatemala - Proyecto base /Jison/NodoAST
 
