@@ -46,7 +46,7 @@ export class Asignacion extends Instruccion {
       }
     }
 
-    if(this.tipo_igual == '='){
+    if(this.tipo_igual == '='){ //'='
       variable.valor = valor;
     }
     else {

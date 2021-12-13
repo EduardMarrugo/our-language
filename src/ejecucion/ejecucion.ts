@@ -480,7 +480,7 @@ export class Ejecucion {
       }
     }
 
-    //NUMBER
+    //NUMBER -> TERO
     if (this.soyNodo('NUMBER', nodo)) {
       const str_num = nodo.hijos[0];
       return new Nativo(nodo.linea, Number(str_num));
@@ -506,8 +506,8 @@ export class Ejecucion {
       return new Nativo(nodo.linea, null);
     }
 
-    //CONSOLE_LOG
-    if (this.soyNodo('CONSOLE_LOG', nodo)) {
+    //CONSOLE_LOG -> ESCRIBE_CONSOLA
+    if (this.soyNodo('ESCRIBE_CONSOLA', nodo)) {
       //console punto log par_izq LISTA_EXPRESIONES par_der punto_coma
       const lista = this.recorrer(nodo.hijos[4]) as Array<Instruccion>;
       return new Log(nodo.linea, lista);
@@ -592,7 +592,7 @@ export class Ejecucion {
     if (this.soyNodo('TIPO_IGUAL', nodo)) {
       switch (nodo.hijos.length) {
         case 1:
-          return '=';
+          return '='; // '='
         case 2:
           if (nodo.hijos[0] == '+') return '+=';
           if (nodo.hijos[0] == '-') return '-=';

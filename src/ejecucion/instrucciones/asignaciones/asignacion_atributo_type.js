@@ -82,7 +82,7 @@ class AsignacionAtributoType extends instruccion_1.Instruccion {
         let valor_a_asignar = this.exp.ejecutar(e);
         _.cloneDeep(valor_a_asignar);
         if (valor instanceof variable_1.Variable) {
-            if (this.tipo_igual == '=') {
+            if (this.tipo_igual == '=') { // '='
                 valor.valor = valor_a_asignar;
             }
             else {
@@ -107,7 +107,7 @@ class AsignacionAtributoType extends instruccion_1.Instruccion {
                     }
                     //Si soy el ultimo indice
                     if (i == lista_exps.length - 1) {
-                        if (this.tipo_igual == '=') {
+                        if (this.tipo_igual == '=') { // '='
                             valor.setValue(index, valor_a_asignar);
                         }
                         else {

@@ -26,14 +26,17 @@
 //-------------------
 'string' return 'string';
 'number' return 'number';
+// 'tero' return 'tero'; 
 'boolean' return 'boolean';
 'void' return 'void';
 'type' return 'type';
 'let' return 'let';
 'locvar' return 'locvar';
 'const' return 'const';
-'console' return 'console';
-'log' return 'log';
+'escribe' return 'escribe'
+// 'console' return 'console';
+'consola' return 'consola';
+// 'log' return 'log';
 'function' return 'function';
 // 'return' return 'return'; --succes
 'devuelve' return 'devuelve';
@@ -95,7 +98,7 @@
 '!' return 'not';
 '?' return 'interrogacion';
 
-
+ 
 //Patrones (Expresiones regulares)
 \"[^\"]*\"			{ yytext = yytext.substr(0,yyleng-0); return 'string'; }
 \'[^\']*\'			{ yytext = yytext.substr(0,yyleng-0); return 'string'; }
@@ -156,7 +159,8 @@ INSTRUCCION
   | DECLARACION_TYPE /*-->TR - EJ<--*/ { $$ = new NodoAST({label: 'INSTRUCCION', hijos: [$1], linea: yylineno}); }
   | ASIGNACION /*-->TR - EJ<--*/ { $$ = new NodoAST({label: 'INSTRUCCION', hijos: [$1], linea: yylineno}); }
   | PUSH_ARREGLO /*-->TR - EJ<--*/ { $$ = new NodoAST({label: 'INSTRUCCION', hijos: [$1], linea: yylineno}); }
-  | CONSOLE_LOG /*-->TR - EJ<--*/ { $$ = new NodoAST({label: 'INSTRUCCION', hijos: [$1], linea: yylineno}); }
+  | ESCRIBE_CONSOLA /*-->TR - EJ<--*/ { $$ = new NodoAST({label: 'INSTRUCCION', hijos: [$1], linea: yylineno}); }
+  // | CONSOLE_LOG /*-->TR - EJ<--*/ { $$ = new NodoAST({label: 'INSTRUCCION', hijos: [$1], linea: yylineno}); }
   // | INSTRUCCION_IF /*-->TR - EJ<--*/ { $$ = new NodoAST({label: 'INSTRUCCION', hijos: [$1], linea: yylineno}); }
   | INSTRUCCION_PORSI /*-->TR - EJ<--*/ { $$ = new NodoAST({label: 'INSTRUCCION', hijos: [$1], linea: yylineno}); }
   | SWITCH /*-->TR - EJ<--*/ { $$ = new NodoAST({label: 'INSTRUCCION', hijos: [$1], linea: yylineno}); }
@@ -253,6 +257,7 @@ ASIGNACION /*-->TR - EJ<--*/
 
 TIPO_IGUAL /*-->TR - EJ<--*/
   : igual { $$ = new NodoAST({label: 'TIPO_IGUAL', hijos: [$1], linea: yylineno}); }
+  //: asing_mode { $$ = new NodoAST({label: 'TIPO_IGUAL', hijos: [$1], linea: yylineno}); }
   | mas igual { $$ = new NodoAST({label: 'TIPO_IGUAL', hijos: [$1,$2], linea: yylineno}); }
   | menos igual { $$ = new NodoAST({label: 'TIPO_IGUAL', hijos: [$1,$2], linea: yylineno}); }
 ;
@@ -261,6 +266,7 @@ ASIGNACION_REPETIDOR /*-->TR - EJ<--*/
   : id TIPO_IGUAL EXP { $$ = new NodoAST({label: 'ASIGNACION_REPETIDOR', hijos: [$1,$2,$3], linea: yylineno}); }
   | id mas_mas { $$ = new NodoAST({label: 'ASIGNACION_REPETIDOR', hijos: [$1,$2], linea: yylineno}); }
   | id menos_menos { $$ = new NodoAST({label: 'ASIGNACION_REPETIDOR', hijos: [$1,$2], linea: yylineno}); }
+  
 ;
 
 SWITCH /*-->TR - EJ<--*/
@@ -397,7 +403,7 @@ PARAMETRO /*-->TR - EJ<--*/
   | id dos_puntos Array menor TIPO_VARIABLE_NATIVA mayor { $$ = new NodoAST({label: 'PARAMETRO', hijos: [$1,$2,$3,$4,$5,$6], linea: yylineno}); }
 ;
 
-DECLARACION_TYPE /*-->TR - EJ<--*/
+DECLARACION_TYPE /*-->TR - EJ<--*/ //cambie le igual
   : type id igual llave_izq LISTA_ATRIBUTOS llave_der { $$ = new NodoAST({label: 'DECLARACION_TYPE', hijos: [$1, $2, $3, $4, $5, $6], linea: yylineno}); }
   | type id igual llave_izq LISTA_ATRIBUTOS llave_der punto_coma { $$ = new NodoAST({label: 'DECLARACION_TYPE', hijos: [$1, $2, $3, $4, $5, $6, $7], linea: yylineno}); }
 ;
@@ -432,17 +438,17 @@ LISTA_DECLARACIONES /*-->TR - EJ<--*/
   | DEC_ID_TIPO_CORCHETES_EXP /*-->TR - EJ<--*/ { $$ = new NodoAST({label: 'LISTA_DECLARACIONES', hijos: [$1], linea: yylineno}); }
 ;
 
-//let id : TIPO_VARIABLE_NATIVA LISTA_CORCHETES = EXP ;
-DEC_ID_TIPO_CORCHETES_EXP /*-->TR - EJ<--*/
+//let id : TIPO_VARIABLE_NATIVA LISTA_CORCHETES = EXP ; cambie el igual
+DEC_ID_TIPO_CORCHETES_EXP /*-->TR - EJ<--*/ 
   : id dos_puntos TIPO_VARIABLE_NATIVA LISTA_CORCHETES igual EXP { $$ = new NodoAST({label: 'DEC_ID_TIPO_CORCHETES_EXP', hijos: [$1,$2,$3,$4,$5,$6], linea: yylineno}); }
 ;
 
-//let id : TIPO_VARIABLE_NATIVA = EXP;
+//let id : TIPO_VARIABLE_NATIVA = EXP; cambie el igual
 DEC_ID_TIPO_EXP /*-->TR - EJ<--*/
   : id dos_puntos TIPO_VARIABLE_NATIVA igual EXP { $$ = new NodoAST({label: 'DEC_ID_TIPO_EXP', hijos: [$1,$2,$3,$4,$5], linea: yylineno}); }
 ;
 
-//let id = EXP ;
+//let id = EXP ; cambie el igual
 DEC_ID_EXP /*-->TR - EJ<--*/
   : id igual EXP { $$ = new NodoAST({label: 'DEC_ID_EXP', hijos: [$1,$2,$3], linea: yylineno}); }
 ;
@@ -496,6 +502,7 @@ EXP
   | EXP or EXP /*-->TR - EJ<--*/ { $$ = new NodoAST({label: 'EXP', hijos: [$1, $2, $3], linea: yylineno}); }
   | not EXP /*-->TR - EJ<--*/ { $$ = new NodoAST({label: 'EXP', hijos: [$1, $2], linea: yylineno}); }
   //Valores Primitivos
+  //| tero /*-->TR - EJ<--*/ { $$ = new NodoAST({label: 'EXP', hijos: [new NodoAST({label: 'TERO', hijos: [$1], linea: yylineno})], linea: yylineno}); }
   | number /*-->TR - EJ<--*/ { $$ = new NodoAST({label: 'EXP', hijos: [new NodoAST({label: 'NUMBER', hijos: [$1], linea: yylineno})], linea: yylineno}); }
   | string /*-->TR - EJ<--*/ { $$ = new NodoAST({label: 'EXP', hijos: [new NodoAST({label: 'STRING', hijos: [$1], linea: yylineno})], linea: yylineno}); }
   | id /*-->TR - EJ<--*/  { $$ = new NodoAST({label: 'EXP', hijos: [new NodoAST({label: 'ID', hijos: [$1], linea: yylineno})], linea: yylineno}); }
@@ -601,6 +608,11 @@ TIPO_VARIABLE_NATIVA
   | id      { $$ = new NodoAST({label: 'TIPO_VARIABLE_NATIVA', hijos: [new NodoAST({label: 'ID', hijos: [$1], linea: yylineno})], linea: yylineno}); }
 ;
 
-CONSOLE_LOG /*-->TR - EJ<--*/
-  : console punto log par_izq LISTA_EXPRESIONES par_der punto_coma { $$ = new NodoAST({label: 'CONSOLE_LOG', hijos: [$1,$2,$3,$4,$5,$6,$7], linea: yylineno}); }
+ESCRIBE_CONSOLA /*-->TR - EJ<--*/
+  : escribe punto consola par_izq LISTA_EXPRESIONES par_der punto_coma { $$ = new NodoAST({label: 'ESCRIBE_CONSOLA', hijos: [$1,$2,$3,$4,$5,$6,$7], linea: yylineno}); }
 ;
+
+
+// CONSOLE_LOG /*-->TR - EJ<--*/
+//   : console punto log par_izq LISTA_EXPRESIONES par_der punto_coma { $$ = new NodoAST({label: 'CONSOLE_LOG', hijos: [$1,$2,$3,$4,$5,$6,$7], linea: yylineno}); }
+// ;

@@ -39,7 +39,7 @@ class Asignacion extends instruccion_1.Instruccion {
                 return;
             }
         }
-        if (this.tipo_igual == '=') {
+        if (this.tipo_igual == '=') { //'='
             variable.valor = valor;
         }
         else {

@@ -48,7 +48,7 @@ class AsignacionArreglo extends instruccion_1.Instruccion {
                 }
                 //Si ya es el ultimo acceso
                 if (i == this.lista_accesos.length - 1) {
-                    if (this.tipo_igual == '=') {
+                    if (this.tipo_igual == '=') { // '='
                         res.setValue(index, valor_a_asignar);
                     }
                     else {

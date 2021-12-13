@@ -456,11 +456,11 @@ export class Traduccion {
       }
     }
 
-    //CONSOLE_LOG
-    else if (this.soyNodo('CONSOLE_LOG', nodo)) {
+    //CONSOLE_LOG -> ESCRIBE_CONSOLA
+    else if (this.soyNodo('ESCRIBE_CONSOLA', nodo)) {
       //console punto log par_izq LISTA_EXPRESIONES par_der punto_coma
       const lista_exp = this.recorrer(nodo.hijos[4], e);
-      return `console.log(${lista_exp});`;
+      return `escribe.consola(${lista_exp});`;
     }
 
     //INSTRUCCION_IF -> INSTRUCCION_PORSI
@@ -1192,7 +1192,7 @@ export class Traduccion {
       return id;
     }
 
-    //NUMBER
+    //NUMBER -> TERO
     else if (this.soyNodo('NUMBER', nodo)) {
       return nodo.hijos[0];
     }
